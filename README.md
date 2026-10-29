@@ -195,6 +195,7 @@ Planned work for **0.2.0** is tracked in the [v0.2.0 milestone](https://github.c
 ## Contributing
 
 - Open an issue before starting substantial work.
+- Branch with Git Flow: `feature/*` from `develop` with pull requests back into `develop`; `release/*` and `hotfix/*` merge into `main` and `develop`, and every release on `main` is tagged `v<version>`.
 - Keep changes focused and update this README when setup or behavior changes.
 - Keep conversation data and personal files out of the repository.
 - Run `npm run typecheck` and `npm test` before opening a pull request.
