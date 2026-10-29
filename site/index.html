@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oh-My-Picklebot</title>
+<meta name="description" content="A local-first AI companion that remembers your day. Chat, keep memories, set reminders and archive notes on your own computer, with a local model through Ollama. Web, macOS, Windows and Linux.">
+<meta property="og:title" content="Oh-My-Picklebot">
+<meta property="og:description" content="A local-first AI companion that remembers your day, running on your own computer with Ollama.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="main.js" defer></script>
+</head>
+<body>
+<header class="nav">
+  <div class="rail nav-in">
+    <a class="brand" href="./"><img src="icon.svg" width="28" height="28" alt=""> Oh-My-Picklebot</a>
+    <nav>
+      <a href="#demo">Demo</a>
+      <a href="#local">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#install">Install</a>
+      <a href="#faq">FAQ</a>
+      <a class="gh" href="https://github.com/SUNGMYEONGGI/Oh-My-Openpickle" aria-label="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg></a>
+    </nav>
+  </div>
+</header>
+
+<main class="rail">
+  <section class="hero">
+    <a class="pill" href="#local"><span class="pill-dot"></span>Runs on your computer with Ollama</a>
+    <h1>A little Pickle that remembers your day.</h1>
+    <p class="lede">Talk to your Pickle, keep the memories you choose, set small reminders and collect notes in one archive. Everything stays on your device, in the browser or as a desktop app, with no account and no cloud.</p>
+    <div class="cta">
+      <a class="btn primary" href="#install">Get started</a>
+      <a class="btn" href="https://github.com/SUNGMYEONGGI/Oh-My-Openpickle">View source</a>
+    </div>
+    <p class="release" id="release">Web, macOS, Windows and Linux. Free, with the source on GitHub.</p>
+    <div class="cast" id="cast"></div>
+  </section>
+
+  <section class="demo" id="demo" aria-label="A scripted conversation in Oh-My-Picklebot">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="app" id="app">
+      <div class="app-bar"><i></i><i></i><i></i><span>Oh My Picklebot</span><button class="replay" id="replay" type="button" hidden>Play again</button></div>
+      <div class="app-body">
+        <aside class="side" id="side"></aside>
+        <div class="chat">
+          <div class="chat-head"><span id="headpk"></span><b>Pickle</b><span id="status">Main chat</span></div>
+          <div class="msgs" id="thread" aria-live="polite"></div>
+          <div class="composer"><span id="typing" class="draft"></span><span class="caret" aria-hidden="true"></span><i class="send" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></i></div>
+        </div>
+        <aside class="tpanel" id="tpanel" aria-label="Pickle's profile">
+          <div class="chat-head"><b>Pickle's profile</b></div>
+          <div class="prof" id="prof"></div>
+        </aside>
+      </div>
+    </div>
+    <p class="demo-note">A scripted preview. You tell Pickle what you like, keep it as a memory, and get a reminder in the chat when the time comes.</p>
+  </section>
+
+  <section class="logos models" aria-label="Models you can run">
+    <p>Chat with any model you run in Ollama on the same computer</p>
+    <div class="marquee" id="marquee"></div>
+  </section>
+
+  <section class="sdk" id="local">
+    <div class="head">
+      <h2>Every conversation stays on your computer</h2>
+      <p>The app, its small local server and your model all run on the same machine. Requests go to 127.0.0.1 and nowhere else. Until you connect a model, a labelled demo mode lets you try every screen.</p>
+    </div>
+    <div class="beams" id="beams">
+      <svg class="beam-svg" aria-hidden="true"></svg>
+      <div class="col">
+        <div class="node" data-id="web"><span class="mono">W</span>Web browser</div>
+        <div class="node" data-id="desk"><span class="mono">D</span>Desktop app</div>
+      </div>
+      <div class="col">
+        <div class="node sdk-node" data-id="srv" data-from="web desk"><b>Local Next.js server</b><small>127.0.0.1 only, origin checked</small></div>
+      </div>
+      <div class="col">
+        <div class="node sdk-node" data-id="ollama" data-from="srv"><b>Ollama</b><small>the model you picked, port 11434</small></div>
+        <div class="node sdk-node" data-id="store" data-from="srv"><b>Local storage</b><small>chats, memories, reminders</small></div>
+      </div>
+      <div class="col">
+        <div class="node hub" data-from="ollama store"><span id="hubpk"></span><b>Your Pickle</b></div>
+      </div>
+    </div>
+    <div class="sdk-grid">
+      <dl class="sdk-points">
+        <div><dt>Demo first, a model when you want</dt><dd>Start in demo mode with fixed replies, always labelled as demo. Connect an Ollama model from My Pickle when you are ready. A failed connection is shown as a failure, never faked.</dd></div>
+        <div><dt>You decide what it remembers</dt><dd>Only the memories you save and the recent turns of the current chat go to the model. Nothing is saved behind your back.</dd></div>
+        <div><dt>One file to move everything</dt><dd>Export a JSON backup and restore it in the browser, the desktop app or another computer. It is checked before anything is replaced.</dd></div>
+      </dl>
+      <div class="log" aria-label="Local request log">
+        <div class="log-head"><b>Local requests</b><span class="live"><i></i>live</span></div>
+        <ol id="log"></ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="head"><h2>What your Pickle can do</h2></div>
+    <div class="bento">
+      <article class="cell wide">
+        <div class="mini mini-thread">
+          <div class="mt-row"><span class="you-dot">You</span><p>I like reading essays before bed.</p></div>
+          <div class="mt-replies">
+            <div class="mt-join">Saved to Memories</div>
+            <div class="mt-row"><span data-pk="0"></span><p>Got it. Want a 20-minute reading reminder at 10 pm?</p></div>
+          </div>
+        </div>
+        <h3>Remember what matters</h3>
+        <p>Long-press any message to keep it as a memory, or write one yourself. Edit them, filter by date, and they come along to the next chat.</p>
+      </article>
+      <article class="cell">
+        <div class="mini mini-routines">
+          <div><i class="pulse"></i><b>Daily 22:00</b><span>Reading time</span></div>
+          <div><i></i><b>Nov 2, 09:00</b><span>Dentist call</span></div>
+          <div><i></i><b>Paused</b><span>Morning stretch</span></div>
+        </div>
+        <h3>Small reminders</h3>
+        <p>Once or every day, with pause and resume. They post into the chat while the app is open.</p>
+      </article>
+      <article class="cell">
+        <div class="mini mini-chips"><span class="on">All</span><span>Money</span><span>Shopping</span><span>Health</span><span>People &amp; pets</span><span>Work</span><span>Travel</span><span>Home</span><span>Fun</span></div>
+        <h3>Explore ideas</h3>
+        <p>Suggestions in eight areas. Open one and start it as a chat draft, or hide it and undo.</p>
+      </article>
+      <article class="cell">
+        <div class="mini mini-files">
+          <div>Archive</div>
+          <div class="in">reading-plan.md <em>new</em></div>
+          <div class="in">grocery-list.txt</div>
+          <div class="in">evening-walk.webp</div>
+        </div>
+        <h3>Keep an archive</h3>
+        <p>Documents and images by date. Import and export TXT, Markdown, PNG, JPEG and WebP.</p>
+      </article>
+      <article class="cell">
+        <div class="mini mini-colors" id="colors"></div>
+        <h3>Make it yours</h3>
+        <p>Name your Pickle, pick its color and switch between light, dark and system themes.</p>
+      </article>
+      <article class="cell wide">
+        <div class="mini mini-backup">
+          <div><b>pickle-backup.json</b><em>214 KB</em></div>
+          <div><span>12 chats, 34 memories, 6 reminders, 9 documents</span><em>checked</em></div>
+          <div><span>Current data saved before restoring</span><em>pickle-before-recovery.json</em></div>
+        </div>
+        <h3>Back up in one file</h3>
+        <p>Your data lives in the browser or app storage. Move it between web and desktop, or keep a copy, with a single JSON file.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="local">
+    <h2>Your story stays on your device</h2>
+    <p>Conversations, memories and documents are stored where you use the app. There is no Oh-My-Picklebot server, no account and no sync to send them to.</p>
+  </section>
+
+  <section class="install" id="install">
+    <div class="head"><h2>Install</h2></div>
+    <ol>
+      <li><b>Get the code.</b> With Node.js 22.18 or later, run <code>git clone https://github.com/SUNGMYEONGGI/Oh-My-Openpickle.git</code>, then <code>npm ci</code> inside the folder.</li>
+      <li><b>Open it in the browser.</b> Run <code>npm run dev</code> and open <code>127.0.0.1:3210/app</code>. Chats are saved in that browser.</li>
+      <li><b>Or build the desktop app.</b> Run <code>npm run dist:mac</code>, <code>dist:win</code> or <code>dist:linux</code> on that system. macOS builds are unsigned.</li>
+      <li><b>Connect a model.</b> Install <a href="https://ollama.com">Ollama</a> and pull a model, then open My Pickle › AI connection and pick it.</li>
+    </ol>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="head"><h2>Questions</h2></div>
+    <div class="qs">
+      <details><summary>What does it cost?</summary><p>Nothing. The app is free and runs a model you choose on your own computer through Ollama, so there are no API fees.</p></details>
+      <details><summary>Is this the Pickle app?</summary><p>No. Oh-My-Picklebot is an independent project inspired by Pickle's screens and flows. It does not use Pickle's servers, accounts or assets, and is not affiliated with its makers.</p></details>
+      <details><summary>Can I talk to a real AI right away?</summary><p>You start in demo mode, which answers with fixed rules and labels every reply. Install Ollama and a model, then connect it from My Pickle for real conversations.</p></details>
+      <details><summary>Where are my chats and memories stored?</summary><p>In the local storage of the browser or desktop app you use. Nothing syncs automatically, so export a backup before clearing browser data.</p></details>
+      <details><summary>Do reminders run when the app is closed?</summary><p>No. Reminders post into the chat while the app is open. They never run tasks or send messages outside.</p></details>
+      <details><summary>Is the interface in English?</summary><p>Not yet. Labels are in Korean. A local model answers in the language you write to it.</p></details>
+      <details><summary>Where can I download an installer?</summary><p>There are no published installers yet. Build one with the commands above; macOS on Apple silicon is the tested platform.</p></details>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="cast small" id="cast2" aria-hidden="true"></div>
+    <h2>Tell your Pickle about today</h2>
+    <div class="cta">
+      <a class="btn primary" href="#install">Get started</a>
+      <a class="btn" href="https://github.com/SUNGMYEONGGI/Oh-My-Openpickle">Star on GitHub</a>
+    </div>
+  </section>
+</main>
+
+<footer class="rail">
+  <span>Oh-My-Picklebot, an independent project</span>
+  <a href="https://github.com/SUNGMYEONGGI/Oh-My-Openpickle">GitHub</a>
+  <a href="https://github.com/SUNGMYEONGGI/Oh-My-Openpickle/issues">Report a problem</a>
+</footer>
+</body>
+</html>

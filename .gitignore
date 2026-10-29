@@ -1,0 +1,12 @@
+node_modules/
+.next/
+dist/
+*.tsbuildinfo
+.env*
+!.env.example
+docs/rea-evidence.json
+docs/rea-web-verification.json
+docs/rea-fidelity-evidence.json
+docs/local-original-icons/
+.DS_Store
+*.log
